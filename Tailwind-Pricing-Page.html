@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" class="transition duration-300">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Pricing</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class'
+    }
+  </script>
+</head>
+
+<body class="bg-slate-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition duration-300">
+
+<section class="py-20">
+  <div class="max-w-7xl mx-auto px-6">
+
+    <!-- Top Controls -->
+    <div class="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
+
+      <!-- Title -->
+      <div>
+        <h1 class="text-4xl font-bold">Pricing</h1>
+        <p class="text-gray-500 dark:text-gray-400">Flexible plans for everyone</p>
+      </div>
+
+      <!-- Toggles -->
+      <div class="flex items-center gap-4">
+
+        <!-- Billing Toggle -->
+        <div class="flex items-center bg-gray-200 dark:bg-gray-700 rounded-full p-1">
+          <button id="monthlyBtn" class="px-4 py-1 rounded-full bg-white dark:bg-gray-800 text-sm">Monthly</button>
+          <button id="yearlyBtn" class="px-4 py-1 rounded-full text-sm">Yearly</button>
+        </div>
+
+        <!-- Dark Mode -->
+        <button id="darkToggle" class="border px-3 py-1 rounded-lg text-sm">
+          🌙
+        </button>
+
+      </div>
+    </div>
+
+    <!-- Pricing Cards -->
+    <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+
+      <!-- FREE -->
+      <div class="card bg-white dark:bg-gray-800 p-8 rounded-2xl shadow hover:shadow-xl transition transform hover:-translate-y-2">
+        <h3 class="text-lg font-semibold">Free</h3>
+        <p class="text-gray-500 dark:text-gray-400 mb-4">Starter plan</p>
+        <p class="text-4xl font-bold mb-6">₹0</p>
+
+        <ul class="space-y-2 text-sm mb-6">
+          <li>✔ 1 User</li>
+          <li>✔ Basic Access</li>
+          <li>✔ Community Support</li>
+        </ul>
+
+        <button class="w-full bg-gray-900 text-white py-2 rounded-lg hover:bg-gray-800">
+          Start For Free
+        </button>
+      </div>
+
+      <!-- BASIC -->
+      <div class="card bg-white dark:bg-gray-800 p-8 rounded-2xl shadow hover:shadow-xl transition transform hover:-translate-y-2">
+        <h3 class="text-lg font-semibold">Basic</h3>
+        <p class="text-gray-500 dark:text-gray-400 mb-4">Small projects</p>
+
+        <p class="text-4xl font-bold mb-6">
+          ₹<span class="price" data-month="199" data-year="1999">199</span>
+          <span class="text-base text-gray-500 dark:text-gray-400">/mo</span>
+        </p>
+
+        <ul class="space-y-2 text-sm mb-6">
+          <li>✔ 3 Users</li>
+          <li>✔ Standard Features</li>
+          <li>✔ Email Support</li>
+        </ul>
+
+        <button class="w-full bg-gray-900 text-white py-2 rounded-lg hover:bg-gray-800">
+          Get Started
+        </button>
+      </div>
+
+      <!-- PRO -->
+      <div class="card relative bg-gradient-to-b from-blue-600 to-indigo-600 text-white p-8 rounded-2xl shadow-xl scale-105 transform hover:-translate-y-2 transition">
+        <span class="absolute top-4 right-4 bg-white text-blue-600 text-xs px-3 py-1 rounded-full">
+          Popular
+        </span>
+
+        <h3 class="text-lg font-semibold">Pro</h3>
+        <p class="text-blue-100 mb-4">Growing teams</p>
+
+        <p class="text-4xl font-bold mb-6">
+          ₹<span class="price" data-month="499" data-year="4999">499</span>
+          <span class="text-base text-blue-100">/mo</span>
+        </p>
+
+        <ul class="space-y-2 text-sm mb-6">
+          <li>✔ 10 Users</li>
+          <li>✔ All Features</li>
+          <li>✔ Priority Support</li>
+        </ul>
+
+        <button class="w-full bg-white text-blue-600 py-2 rounded-lg hover:bg-gray-100">
+          Get Started
+        </button>
+      </div>
+
+      <!-- ENTERPRISE -->
+      <div class="card bg-white dark:bg-gray-800 p-8 rounded-2xl shadow hover:shadow-xl transition transform hover:-translate-y-2">
+        <h3 class="text-lg font-semibold">Enterprise</h3>
+        <p class="text-gray-500 dark:text-gray-400 mb-4">Advanced</p>
+
+        <p class="text-4xl font-bold mb-6">
+          ₹<span class="price" data-month="999" data-year="9999">999</span>
+          <span class="text-base text-gray-500 dark:text-gray-400">/mo</span>
+        </p>
+
+        <ul class="space-y-2 text-sm mb-6">
+          <li>✔ Unlimited Users</li>
+          <li>✔ Dedicated Support</li>
+          <li>✔ Custom Solutions</li>
+        </ul>
+
+        <button class="w-full bg-gray-900 text-white py-2 rounded-lg hover:bg-gray-800">
+          Get Started
+        </button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  const monthlyBtn = document.getElementById('monthlyBtn');
+  const yearlyBtn = document.getElementById('yearlyBtn');
+  const prices = document.querySelectorAll('.price');
+  const darkToggle = document.getElementById('darkToggle');
+
+  let isYearly = false;
+
+  function updatePrices() {
+    prices.forEach(p => {
+      p.textContent = isYearly ? p.dataset.year : p.dataset.month;
+    });
+
+    monthlyBtn.classList.toggle('bg-white', !isYearly);
+    yearlyBtn.classList.toggle('bg-white', isYearly);
+  }
+
+  monthlyBtn.onclick = () => {
+    isYearly = false;
+    updatePrices();
+  };
+
+  yearlyBtn.onclick = () => {
+    isYearly = true;
+    updatePrices();
+  };
+
+  darkToggle.onclick = () => {
+    document.documentElement.classList.toggle('dark');
+  };
+
+  // Initial state
+  updatePrices();
+</script>
+
+</body>
+</html>
